@@ -90,8 +90,8 @@ class SelectionMenuNo1 {
 			selection.yourChoice(selectMenu);
 			break;
 		case 1:
-			for (int i = 0; i < Table.idTable.length; i++) {
-				IOput.output(i + 1 + ". " + Table.idTable[i]);
+			for (int i = 0; i < Table.ID_TABLE.length; i++) {
+				IOput.output(i + 1 + ". " + Table.ID_TABLE[i]);
 			}
 			IOput.output("Please input ID table");
 			selectMenu = IOput.input();
@@ -134,7 +134,7 @@ class SelectionMenuNo2{
 			idName = IOput.input();
 			IOput.output("Plese input product's quantity :");
 			productQuantity = IOput.input();
-			Main.table.addProduct(Table.idTable[selectMenu-1], Main.product.getAlName().get(idName-1), productQuantity);
+			Main.table.addProduct(Table.ID_TABLE[selectMenu-1], Main.product.getAlName().get(idName-1), productQuantity);
 			menu.menuSelectProduct();
 			selectMenu = IOput.input();
 			selectionMenuNo2.yourChoise(selectMenu);
@@ -222,8 +222,7 @@ class SelectionMenuNo4 {
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+                    // TODO Auto-generated catch block
 			}
 			menu.menuMain();
 			selectMenu = IOput.input();
@@ -234,8 +233,7 @@ class SelectionMenuNo4 {
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+                    // TODO Auto-generated catch block
 			}
 			menu.menuMain();
 			selectMenu = IOput.input();

@@ -61,8 +61,8 @@ public class Menu {
 	
 	public void selectProductTable() {
 		System.out.println("Plesse select you choose product");
-		for (int i = 0; i < Table.idTable.length; i++) {
-			IOput.output(i + 1 + ". " + Table.idTable[i]);
+		for (int i = 0; i < Table.ID_TABLE.length; i++) {
+			IOput.output(i + 1 + ". " + Table.ID_TABLE[i]);
 		}
 		IOput.output("-----------------------------------------");
 		showProduct((byte) 2);
@@ -125,8 +125,8 @@ public class Menu {
 		case 1:
 			int totalPayTable = 0;
 			System.out.println("Billing");
-			for (int i = 0; i < Main.table.getHsTable().get(Table.idTable[selectMenu-1]).getAlName().size(); i++) {
-				String idTable = Table.idTable[selectMenu-1];
+			for (int i = 0; i < Main.table.getHsTable().get(Table.ID_TABLE[selectMenu-1]).getAlName().size(); i++) {
+				String idTable = Table.ID_TABLE[selectMenu-1];
 				String productName = Main.table.getHsTable().get(idTable).getAlName().get(i);
 				int productQuantity = Main.table.getHsTable().get(idTable).getHsQuantity().get(productName);
 				int productPrice = Main.product.getHsPrice().get(productName);
