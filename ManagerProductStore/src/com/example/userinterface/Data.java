@@ -70,7 +70,7 @@ public class Data {
                 for (int i = 0; i < table.getHsTable().get(tableName).getHsQuantity().size(); i++) {
                     String idTable = tableName;
                     String productName = table.getHsTable().get(idTable).getAlName().get(i);
-                    System.out.println(productName);
+//                    System.out.println(productName);
                     int productQuantity = table.getHsTable().get(idTable).getHsQuantity().get(productName);
                     int productPrice = product.getHsPrice().get(productName);
                     table.getHsTable().get(idTable).getHsPrice().put(productName, productPrice);

@@ -18,8 +18,12 @@ public class ModifyProduct extends javax.swing.JFrame {
     /**
      * Creates new form ModifyProduct
      */
-    MenuInterface menuInterface;
-
+    private MenuInterface menuInterface;
+    private String[] productName;
+    private String pdName;
+    private int productPrice;
+    private int productQuantity;
+    
     public ModifyProduct(){
         
     }
@@ -35,14 +39,15 @@ public class ModifyProduct extends javax.swing.JFrame {
     }
     
     private void addProduct(MenuInterface menuInterface){
-        String [] productName = new String []{};
-        for (int i = 0; i < menuInterface.getData().getProduct().getAlName().size(); i++){
-            System.out.println("here");
-            System.out.println(menuInterface.getData().getProduct().getAlName().get(i));
-//             productName[i] = menuInterface.getData().getProduct().getAlName().get(i);
+        productName = new String[menuInterface.getData().getProduct().getHsQuantity().size()];
+        for (int i = 0; i < menuInterface.getData().getProduct().getHsQuantity().size(); i++){
+//            System.out.println("here");
+//            System.out.println(menuInterface.getData().getProduct().getAlName().get(i));
+            productName[i] = menuInterface.getData().getProduct().getAlName().get(i);
         }
+        pdName = productName[0];
         DefaultComboBoxModel model = new DefaultComboBoxModel(productName);
-        jComboBox1.setModel(model);        
+        cbProductName.setModel(model);        
         
     }
 
@@ -55,12 +60,12 @@ public class ModifyProduct extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbProductName = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextFieldProductPrice = new javax.swing.JTextField();
-        jTextFieldProductQuantity = new javax.swing.JTextField();
+        tfProductPrice = new javax.swing.JTextField();
+        tfProductQuantity = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -74,6 +79,11 @@ public class ModifyProduct extends javax.swing.JFrame {
         jLabel3.setText("Product quantity");
 
         jButton1.setText("Modify");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Delete");
 
@@ -89,15 +99,15 @@ public class ModifyProduct extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tfProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(jButton1)
@@ -111,15 +121,15 @@ public class ModifyProduct extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextFieldProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextFieldProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -129,6 +139,22 @@ public class ModifyProduct extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+        productPrice = Integer.parseInt(tfProductPrice.getText());
+        } catch (NumberFormatException e){
+            tfProductPrice.setText("");
+            tfProductPrice.requestFocus();
+        }
+        try {
+        productQuantity = Integer.parseInt(tfProductQuantity.getText());
+        } catch (NumberFormatException e){
+            tfProductQuantity.setText("");
+            tfProductQuantity.requestFocus();
+        }
+        menuInterface.getData().getProduct().addProduct(pdName, productPrice, productQuantity);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,13 +192,13 @@ public class ModifyProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbProductName;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextFieldProductPrice;
-    private javax.swing.JTextField jTextFieldProductQuantity;
+    private javax.swing.JTextField tfProductPrice;
+    private javax.swing.JTextField tfProductQuantity;
     // End of variables declaration//GEN-END:variables
 }
