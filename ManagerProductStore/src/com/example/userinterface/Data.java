@@ -69,7 +69,7 @@ public class Data {
                 jTextArea.append("------------------------------" + "\n");
                 for (int i = 0; i < table.getHsTable().get(tableName).getHsQuantity().size(); i++) {
                     String idTable = tableName;
-                    String productName = table.getHsTable().get(idTable).getAlName().get(i);
+                    String productName = table.getHsTable().get(idTable).getAlName((byte)i);
 //                    System.out.println(productName);
                     int productQuantity = table.getHsTable().get(idTable).getHsQuantity().get(productName);
                     int productPrice = product.getHsPrice().get(productName);
@@ -111,16 +111,16 @@ public class Data {
 //			break;
             case 3:
                 for (int i = 0; i < product.getHsPrice().size(); i++) {
-                    String name = product.getAlName().get(i);
-                    int quantity = product.getHsQuantity().get(product.getAlName().get(i));
+                    String name = product.getAlName((byte) i);
+                    int quantity = product.getHsQuantity().get(product.getAlName((byte) i));
                     jTextArea.append((i + 1) + ". " + name + " - Quantity " + quantity + "\n");
                 }
                 break;
             case 4:
                 for (int i = 0; i < product.getHsQuantity().size(); i++) {
-                    String name = product.getAlName().get(i);
-                    int price = product.getHsPrice().get(product.getAlName().get(i));
-                    int quantity = product.getHsQuantity().get(product.getAlName().get(i));
+                    String name = product.getAlName((byte) i);
+                    int price = product.getHsPrice().get(product.getAlName((byte) i));
+                    int quantity = product.getHsQuantity().get(product.getAlName((byte) i));
                     jTextArea.append((i + 1) + ". " + name + " - Quantity " + quantity + " - " + price + " VND" + "\n");
                 }
                 break;

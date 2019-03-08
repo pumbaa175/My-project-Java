@@ -77,7 +77,7 @@ public class Menu {
 	public void menuInputQuantity() {
 		System.out.println("Press 0 to cancel select and back from Menu Product");
 		System.out.println("------------------------------");
-		System.out.println("Your Product is " + Main.product.getAlName().get(Main.selectMenu - 1));
+		System.out.println("Your Product is " + Main.product.getAlName((byte) (Main.selectMenu - 1)));
 		System.out.println("Plesse input quantity of product");
 		System.out.println("Quantity of Product = ");
 	}
@@ -125,63 +125,63 @@ public class Menu {
 		case 1:
 			int totalPayTable = 0;
 			System.out.println("Billing");
-			for (int i = 0; i < Main.table.getHsTable().get(Table.ID_TABLE[selectMenu-1]).getAlName().size(); i++) {
-				String idTable = Table.ID_TABLE[selectMenu-1];
-				String productName = Main.table.getHsTable().get(idTable).getAlName().get(i);
-				int productQuantity = Main.table.getHsTable().get(idTable).getHsQuantity().get(productName);
-				int productPrice = Main.product.getHsPrice().get(productName);
-				Main.table.getHsTable().get(idTable).getHsPrice().put(productName, productPrice);
-				int productPay = productQuantity * productPrice;
-				totalPayTable += productPay;
-				System.out.println("Prodct name: " + productName);
-				System.out.println("Quantity: " + productQuantity);
-				System.out.println("Total pay: " + productPay);
-				System.out.println("------------------------------");
-			}
+//			for (int i = 0; i < Main.table.getHsTable().get(Table.ID_TABLE[selectMenu-1]).getAlName(); i++) {
+//				String idTable = Table.ID_TABLE[selectMenu-1];
+//				String productName = Main.table.getHsTable().get(idTable).getAlName().get(i);
+//				int productQuantity = Main.table.getHsTable().get(idTable).getHsQuantity().get(productName);
+//				int productPrice = Main.product.getHsPrice().get(productName);
+//				Main.table.getHsTable().get(idTable).getHsPrice().put(productName, productPrice);
+//				int productPay = productQuantity * productPrice;
+//				totalPayTable += productPay;
+//				System.out.println("Prodct name: " + productName);
+//				System.out.println("Quantity: " + productQuantity);
+//				System.out.println("Total pay: " + productPay);
+//				System.out.println("------------------------------");
+//			}
 			System.out.println("Total :" + totalPayTable);
 			totalRevenue.addTotalRevenue(totalPayTable);
 			break;
 		case 11:
 			int totalPayTakeAway = 0;
 			System.out.println("Billing");
-			for (int i = 0; i < Main.takeAway.getProductTakeAway().getAlName().size(); i++) {
-				String productName = Main.takeAway.getProductTakeAway().getAlName().get(i);
-				int productQuantity = Main.takeAway.getProductTakeAway().getHsQuantity().get(productName);
-				int productPrice = Main.product.getHsPrice().get(productName);
-				Main.takeAway.getProductTakeAway().getHsPrice().put(productName, productPrice);
-				int productPay = productQuantity * productPrice;
-				totalPayTakeAway += productPay;
-				System.out.println("Prodct name: " + productName);
-				System.out.println("Quantity: " + productQuantity);
-				System.out.println("Total pay: " + productPay);
-				System.out.println("------------------------------");
-			}
+//			for (int i = 0; i < Main.takeAway.getProductTakeAway().getAlName().size(); i++) {
+//				String productName = Main.takeAway.getProductTakeAway().getAlName().get(i);
+//				int productQuantity = Main.takeAway.getProductTakeAway().getHsQuantity().get(productName);
+//				int productPrice = Main.product.getHsPrice().get(productName);
+//				Main.takeAway.getProductTakeAway().getHsPrice().put(productName, productPrice);
+//				int productPay = productQuantity * productPrice;
+//				totalPayTakeAway += productPay;
+//				System.out.println("Prodct name: " + productName);
+//				System.out.println("Quantity: " + productQuantity);
+//				System.out.println("Total pay: " + productPay);
+//				System.out.println("------------------------------");
+//			}
 			System.out.println("Total :" + totalPayTakeAway);
 			totalRevenue.addTotalRevenue(totalPayTakeAway);
 			break;
 		case 2:
-			for (int i = 0; i < Main.product.getHsPrice().size(); i++){
-//				System.out.println("1. Product 1");
-				String name = Main.product.getAlName().get(i);
-				System.out.println((i+1) + ". " + name);		
-			}
+//			for (int i = 0; i < Main.product.getHsPrice().size(); i++){
+////				System.out.println("1. Product 1");
+//				String name = Main.product.getAlName().get(i);
+//				System.out.println((i+1) + ". " + name);		
+//			}
 			break;
 		case 3:
 //			System.out.println("1. Product 1 - Quantity 50");
-			for (int i = 0; i < Main.product.getHsPrice().size(); i++){
-				String name = Main.product.getAlName().get(i);
-				int quantity = Main.product.getHsQuantity().get(Main.product.getAlName().get(i));
-				System.out.println((i+1) + ". " + name + " - Quantity " +quantity);		
-			}
+//			for (int i = 0; i < Main.product.getHsPrice().size(); i++){
+//				String name = Main.product.getAlName().get(i);
+//				int quantity = Main.product.getHsQuantity().get(Main.product.getAlName().get(i));
+//				System.out.println((i+1) + ". " + name + " - Quantity " +quantity);		
+//			}
 			break;
 		case 4:
 //			System.out.println("1. Product 1 - Quantity 50 - Price 50 000 VND");
-			for (int i = 0; i < Main.product.getHsPrice().size(); i++){
-				String name = Main.product.getAlName().get(i);
-				int price = Main.product.getHsPrice().get(Main.product.getAlName().get(i));
-				int quantity = Main.product.getHsQuantity().get(Main.product.getAlName().get(i));
-				System.out.println((i+1) + ". " + name + " - Quantity " + quantity + " - " + price + " VND");		
-			}
+//			for (int i = 0; i < Main.product.getHsPrice().size(); i++){
+//				String name = Main.product.getAlName().get(i);
+//				int price = Main.product.getHsPrice().get(Main.product.getAlName().get(i));
+//				int quantity = Main.product.getHsQuantity().get(Main.product.getAlName().get(i));
+//				System.out.println((i+1) + ". " + name + " - Quantity " + quantity + " - " + price + " VND");		
+//			}
 			break;
 		default:
 			break;

@@ -23,6 +23,10 @@ public class MenuNo3 extends javax.swing.JInternalFrame {
         initComponents();
         this.menuInterface = menuInterface;
     }
+    
+    public void showTextArea(){
+        menuInterface.getData().showProduct(taMenuNo3, (byte) 4, "");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,12 +95,12 @@ public class MenuNo3 extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddProductActionPerformed
-        addProduct = new AddProduct(menuInterface);
+        addProduct = new AddProduct(menuInterface, this);
         addProduct.setVisible(true);
     }//GEN-LAST:event_btAddProductActionPerformed
 
     private void btModifyProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btModifyProductActionPerformed
-        modifyProduct = new ModifyProduct(menuInterface);
+        modifyProduct = new ModifyProduct(menuInterface, this);
         modifyProduct.setVisible(true);
     }//GEN-LAST:event_btModifyProductActionPerformed
 

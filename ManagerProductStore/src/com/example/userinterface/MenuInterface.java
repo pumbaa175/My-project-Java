@@ -167,58 +167,71 @@ public class MenuInterface extends javax.swing.JFrame {
                 .addComponent(dpMenuMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(75, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButtonMenuNo1, jButtonMenuNo2, jButtonMenuNo3, jButtonMenuNo4, jButtonMenuNo5});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jButtonMenuNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonMenuNo2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonMenuNo3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jButtonMenuNo4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jButtonMenuNo5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(dpMenuMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jButtonMenuNo1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonMenuNo2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonMenuNo3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonMenuNo4, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonMenuNo5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(dpMenuMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(68, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonMenuNo1, jButtonMenuNo2, jButtonMenuNo3, jButtonMenuNo4, jButtonMenuNo5});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonMenuNo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuNo1ActionPerformed
-        hideInteralFrame();
-        menuNo1.show();
-        menuNo1.showMenu();
         if (menuID != 1){
             menuID = 1;
-            menuNo1.showTextArea(menuID);
+            hideInteralFrame();
+            menuNo1.show();
+            menuNo1.showMenu();
         }
+        menuNo1.showTextArea(menuID);
     }//GEN-LAST:event_jButtonMenuNo1ActionPerformed
 
     private void jButtonMenuNo3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuNo3ActionPerformed
-        hideInteralFrame();
-        menuNo1.show();
-        menuNo1.hideMenu();
         if (menuID != 3){
             menuID = 3;
-            menuNo1.showTextArea(menuID);
+            hideInteralFrame();
+            menuNo1.show();
+            menuNo1.hideMenu();
         }
+        menuNo1.showTextArea(menuID);
     }//GEN-LAST:event_jButtonMenuNo3ActionPerformed
 
     private void jButtonMenuNo4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuNo4ActionPerformed
-        hideInteralFrame();
-        menuNo3.show();
+        if (menuID != 4){
+            menuID = 4;
+            hideInteralFrame();
+            menuNo3.show();
+        }
+        menuNo3.showTextArea();
     }//GEN-LAST:event_jButtonMenuNo4ActionPerformed
 
     private void jButtonMenuNo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuNo2ActionPerformed
-        hideInteralFrame();
-        menuNo2.show();
+         if (menuID != 2){
+            menuID = 2;
+            hideInteralFrame();
+            menuNo2.show();
+        }
     }//GEN-LAST:event_jButtonMenuNo2ActionPerformed
 
     private void hideInteralFrame(){

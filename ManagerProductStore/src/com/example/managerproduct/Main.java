@@ -134,7 +134,7 @@ class SelectionMenuNo2{
 			idName = IOput.input();
 			IOput.output("Plese input product's quantity :");
 			productQuantity = IOput.input();
-			Main.table.addProduct(Table.ID_TABLE[selectMenu-1], Main.product.getAlName().get(idName-1), productQuantity);
+//			Main.table.addProduct(Table.ID_TABLE[selectMenu-1], Main.product.getAlName().get(idName-1), productQuantity);
 			menu.menuSelectProduct();
 			selectMenu = IOput.input();
 			selectionMenuNo2.yourChoise(selectMenu);
@@ -146,7 +146,7 @@ class SelectionMenuNo2{
 			idName = IOput.input();
 			IOput.output("Plese input product's quantity :");
 			productQuantity = IOput.input();
-			Main.takeAway.addProduct(Main.product.getAlName().get(idName-1), productQuantity);
+//			Main.takeAway.addProduct(Main.product.getAlName().get(idName-1), productQuantity);
 			menu.menuSelectProduct();
 			selectMenu = IOput.input();
 			selectionMenuNo2.yourChoise(selectMenu);

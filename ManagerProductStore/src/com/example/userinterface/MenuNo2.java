@@ -32,12 +32,12 @@ public class MenuNo2 extends javax.swing.JInternalFrame {
     
     private void setBTSelectProduct(){
 //        for (int i =0; i < menuInterface.getData().getProduct().getHsQuantity().size(); i++){
-        btProduct1.setText(menuInterface.getData().getProduct().getAlName().get(0));
-        btProduct2.setText(menuInterface.getData().getProduct().getAlName().get(1));
-        btProduct3.setText(menuInterface.getData().getProduct().getAlName().get(2));
-        btProduct4.setText(menuInterface.getData().getProduct().getAlName().get(3));
-        btProduct5.setText(menuInterface.getData().getProduct().getAlName().get(4));
-        btProduct6.setText(menuInterface.getData().getProduct().getAlName().get(5));
+        btProduct1.setText(menuInterface.getData().getProduct().getAlName((byte) 0));
+        btProduct2.setText(menuInterface.getData().getProduct().getAlName((byte) 1));
+        btProduct3.setText(menuInterface.getData().getProduct().getAlName((byte) 2));
+        btProduct4.setText(menuInterface.getData().getProduct().getAlName((byte) 3));
+        btProduct5.setText(menuInterface.getData().getProduct().getAlName((byte) 4));
+        btProduct6.setText(menuInterface.getData().getProduct().getAlName((byte) 5));
 //        }        
     }
 

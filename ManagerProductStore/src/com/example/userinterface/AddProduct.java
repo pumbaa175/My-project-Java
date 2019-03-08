@@ -17,13 +17,15 @@ public class AddProduct extends javax.swing.JFrame {
      * Creates new form AddProduct
      */
     private MenuInterface menuInterface;
+    private MenuNo3 menuNo3;
 
     public AddProduct() {
     }
 
-    public AddProduct(MenuInterface menuInterface) {
+    public AddProduct(MenuInterface menuInterface, MenuNo3 menuNo3) {
         initComponents();
         this.menuInterface = menuInterface;
+        this.menuNo3 = menuNo3;
     }
 
     /**
@@ -41,7 +43,7 @@ public class AddProduct extends javax.swing.JFrame {
         jTextFieldProductName = new javax.swing.JTextField();
         jTextFieldProductPrice = new javax.swing.JTextField();
         jTextFieldProductQuantity = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonAddProduct = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Product");
@@ -52,10 +54,10 @@ public class AddProduct extends javax.swing.JFrame {
 
         jLabel3.setText("Product Quantity");
 
-        jButton1.setText("Add Product");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAddProduct.setText("Add Product");
+        jButtonAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonAddProductActionPerformed(evt);
             }
         });
 
@@ -77,7 +79,7 @@ public class AddProduct extends javax.swing.JFrame {
                 .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
                 .addGap(84, 84, 84)
-                .addComponent(jButton1)
+                .addComponent(jButtonAddProduct)
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,7 +101,7 @@ public class AddProduct extends javax.swing.JFrame {
                     .addComponent(jTextFieldProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(jButtonAddProduct)
                 .addGap(4, 4, 4))
         );
 
@@ -108,18 +110,23 @@ public class AddProduct extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddProductActionPerformed
         try {
             String productName  = jTextFieldProductName.getText();
             int productPrice    = Integer.parseInt(jTextFieldProductPrice.getText());
-            int productQuantity = Integer.parseInt(jTextFieldProductQuantity.getText());
+            int productQuantity = 0;
+            if(menuInterface.getData().getProduct().getHsQuantity().get(productName) != null){
+                productQuantity = Integer.parseInt(menuInterface.getData().getProduct().getHsQuantity().get(productName).toString());
+            }
+            productQuantity += Integer.parseInt(jTextFieldProductQuantity.getText());
             menuInterface.getData().getProduct().addProduct(productName, productPrice, productQuantity);
-        } catch (NullPointerException e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Wrong Format");
             jTextFieldProductPrice.requestFocus();
         }
         setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        menuNo3.showTextArea();
+    }//GEN-LAST:event_jButtonAddProductActionPerformed
 
     /**
      * @param args the command line arguments
@@ -157,7 +164,7 @@ public class AddProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonAddProduct;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

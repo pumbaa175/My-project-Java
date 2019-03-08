@@ -8,6 +8,7 @@ package com.example.userinterface;
 import com.example.managerproduct.Table;
 import java.awt.HeadlessException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,36 +20,34 @@ public class ModifyProduct extends javax.swing.JFrame {
      * Creates new form ModifyProduct
      */
     private MenuInterface menuInterface;
+    private MenuNo3 menuNo3;
     private String[] productName;
     private String pdName;
     private int productPrice;
     private int productQuantity;
-    
-    public ModifyProduct(){
-        
+
+    public ModifyProduct() {
+
     }
-    
-    
-    
-    public ModifyProduct(MenuInterface menuInterface) {
+
+    public ModifyProduct(MenuInterface menuInterface, MenuNo3 menuNo3) {
         initComponents();
         this.menuInterface = menuInterface;
+        this.menuNo3 = menuNo3;
         addProduct(this.menuInterface);
-        
-        
+
     }
-    
-    private void addProduct(MenuInterface menuInterface){
+
+    private void addProduct(MenuInterface menuInterface) {
         productName = new String[menuInterface.getData().getProduct().getHsQuantity().size()];
-        for (int i = 0; i < menuInterface.getData().getProduct().getHsQuantity().size(); i++){
-//            System.out.println("here");
-//            System.out.println(menuInterface.getData().getProduct().getAlName().get(i));
-            productName[i] = menuInterface.getData().getProduct().getAlName().get(i);
+        for (int i = 0; i < menuInterface.getData().getProduct().getHsQuantity().size(); i++) {
+            productName[i] = menuInterface.getData().getProduct().getAlName((byte) i);
         }
         pdName = productName[0];
         DefaultComboBoxModel model = new DefaultComboBoxModel(productName);
-        cbProductName.setModel(model);        
-        
+        cbProductName.setModel(model);
+        tfProductPrice.setText(menuInterface.getData().getProduct().getHsPrice().get(pdName).toString());
+        tfProductQuantity.setText(menuInterface.getData().getProduct().getHsQuantity().get(pdName).toString());
     }
 
     /**
@@ -66,11 +65,17 @@ public class ModifyProduct extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         tfProductPrice = new javax.swing.JTextField();
         tfProductQuantity = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonModifyProduct = new javax.swing.JButton();
+        jButtonDeleteProduct = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Modify Product");
+
+        cbProductName.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbProductNameItemStateChanged(evt);
+            }
+        });
 
         jLabel1.setText("Product name");
 
@@ -78,14 +83,19 @@ public class ModifyProduct extends javax.swing.JFrame {
 
         jLabel3.setText("Product quantity");
 
-        jButton1.setText("Modify");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonModifyProduct.setText("Modify");
+        jButtonModifyProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonModifyProductActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Delete");
+        jButtonDeleteProduct.setText("Delete");
+        jButtonDeleteProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteProductActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,9 +120,9 @@ public class ModifyProduct extends javax.swing.JFrame {
                                 .addComponent(tfProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(57, 57, 57)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonModifyProduct)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(jButtonDeleteProduct)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -132,29 +142,50 @@ public class ModifyProduct extends javax.swing.JFrame {
                     .addComponent(tfProductQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonDeleteProduct)
+                    .addComponent(jButtonModifyProduct))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonModifyProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyProductActionPerformed
+        takeInput((byte) 1);
+    }//GEN-LAST:event_jButtonModifyProductActionPerformed
+
+    private void jButtonDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteProductActionPerformed
+        takeInput((byte) 2);
+    }//GEN-LAST:event_jButtonDeleteProductActionPerformed
+
+    private void cbProductNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbProductNameItemStateChanged
+        pdName = evt.getItem().toString();
+        tfProductPrice.setText(menuInterface.getData().getProduct().getHsPrice().get(pdName).toString());
+        tfProductQuantity.setText(menuInterface.getData().getProduct().getHsQuantity().get(pdName).toString());
+    }//GEN-LAST:event_cbProductNameItemStateChanged
+
+    private void takeInput(byte btID) {
         try {
-        productPrice = Integer.parseInt(tfProductPrice.getText());
-        } catch (NumberFormatException e){
+            productPrice = Integer.parseInt(tfProductPrice.getText());
             tfProductPrice.setText("");
             tfProductPrice.requestFocus();
+            productQuantity = Integer.parseInt(tfProductQuantity.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Wrong Format");
+            tfProductPrice.requestFocus();
+            return;
         }
-        try {
-        productQuantity = Integer.parseInt(tfProductQuantity.getText());
-        } catch (NumberFormatException e){
-            tfProductQuantity.setText("");
-            tfProductQuantity.requestFocus();
+        switch(btID){
+            case 1:
+                menuInterface.getData().getProduct().addProduct(pdName, productPrice, productQuantity);
+                break;
+            case 2:
+                menuInterface.getData().getProduct().deleteProduct(pdName);
+                break;
         }
-        menuInterface.getData().getProduct().addProduct(pdName, productPrice, productQuantity);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        setVisible(false);
+        menuNo3.showTextArea();
+    }
 
     /**
      * @param args the command line arguments
@@ -193,8 +224,8 @@ public class ModifyProduct extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbProductName;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonDeleteProduct;
+    private javax.swing.JButton jButtonModifyProduct;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
