@@ -6,12 +6,13 @@
 package com.example.userinterface;
 
 import com.example.data.Player;
-import com.example.data.Position;
 import com.example.processed.Processed;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -30,26 +31,40 @@ public class TablePosition extends javax.swing.JFrame {
     public final static int COUNT_COLUMN = 11;
     private final String IS_CHECKED = "X";
     private final String IS_PLANE = "PLE";
-    
-    
+    private final String YOUR_TURN_TXT = "Player turn : Your turn!";
+    private final String ENEMY_TURN_TXT = "Player turn : Enemy turn!";
+
     private Processed processed;
     private int numberPlane = NUMBER_PLANE;
     private int typePlayer;
-    private HashMap<String, Player> hsPlayer1;
-    private HashMap<String, Player> hsPlayer2;
+    private HashMap<String, Player> hsYourPlane;
+    private HashMap<String, Player> hsEnemyPlane;
+    private ArrayList<Player> alYourFirePlane;
+    private ArrayList<Player> alEnemyFirePlane;
     private String[] stPlane;
+
+    public boolean yourTurn = true;
 
     public TablePosition() {
         initComponents();
+        addPlayer();
         addPlaneName();
+        processed = new Processed(this, hsYourPlane, hsEnemyPlane, alYourFirePlane, alEnemyFirePlane);
+        processed.getBotProcessed().choosePlane(tbPlane, hsEnemyPlane);
     }
-    
-    private void addPlaneName(){
-        stPlane = new String [NUMBER_PLANE];
-        hsPlayer1 = new HashMap<>();
-        for(int i = 0; i < stPlane.length; i++){
+
+    private void addPlayer() {
+        hsYourPlane = new HashMap<>();
+        hsEnemyPlane = new HashMap<>();
+        alYourFirePlane = new ArrayList<>();
+        alEnemyFirePlane = new ArrayList<>();
+    }
+
+    private void addPlaneName() {
+        stPlane = new String[NUMBER_PLANE];
+        for (int i = 0; i < stPlane.length; i++) {
             stPlane[i] = "Plane No." + (i + 1);
-            hsPlayer1.put(stPlane[i], new Player(0, 0, 0));
+            hsYourPlane.put(stPlane[i], new Player(0, 0, 0));
         }
     }
 
@@ -73,6 +88,8 @@ public class TablePosition extends javax.swing.JFrame {
         taHintsLog = new javax.swing.JTextArea();
         btSelectOK = new javax.swing.JButton();
         lbPlayerTurn = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -112,11 +129,11 @@ public class TablePosition extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Information");
+        jLabel1.setText("Information :");
 
-        lbNumberMyPlane.setText("My Plane:");
+        lbNumberMyPlane.setText("My Plane: 5 Plane");
 
-        lbNumberEnemyPlane.setText("Enemy Plane:");
+        lbNumberEnemyPlane.setText("Enemy Plane: 5 Plane");
 
         jLabel2.setText("Hints log:");
 
@@ -134,7 +151,7 @@ public class TablePosition extends javax.swing.JFrame {
             }
         });
 
-        lbPlayerTurn.setText("Player turn");
+        lbPlayerTurn.setText("Player turn: ");
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -152,18 +169,24 @@ public class TablePosition extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbNumberMyPlane)
-                    .addComponent(lbNumberEnemyPlane)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btSelectOK)
-                            .addComponent(jLabel1))
-                        .addGap(27, 27, 27)
-                        .addComponent(btNewGame))
-                    .addComponent(lbPlayerTurn))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbNumberMyPlane)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btSelectOK)
+                                    .addComponent(jLabel1))
+                                .addGap(27, 27, 27)
+                                .addComponent(btNewGame))
+                            .addComponent(lbPlayerTurn)
+                            .addComponent(lbNumberEnemyPlane))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,9 +197,13 @@ public class TablePosition extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btNewGame, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btSelectOK, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(5, 5, 5)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbPlayerTurn)
-                        .addGap(21, 21, 21)
+                        .addGap(12, 12, 12)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(lbNumberMyPlane)
@@ -187,7 +214,7 @@ public class TablePosition extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 25, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,22 +222,25 @@ public class TablePosition extends javax.swing.JFrame {
 
     private void tbPlaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbPlaneMouseClicked
         //Insert string "X" to cell is Selected
-        int column = tbPlane.columnAtPoint(evt.getPoint());
-        int row = tbPlane.rowAtPoint(evt.getPoint());
-        chooseCell(column, row, typePlayer);
+        if (yourTurn) {
+            int column = tbPlane.columnAtPoint(evt.getPoint());
+            int row = tbPlane.rowAtPoint(evt.getPoint());
+            chooseCell(column, row, typePlayer);
+        }
+        
     }//GEN-LAST:event_tbPlaneMouseClicked
 
     //Set value for Cell "X" vs "PLE"
-    private void chooseCell(int column, int row, int typePlayer){
-        switch(typePlayer){
+    private void chooseCell(int column, int row, int typePlayer) {
+        switch (typePlayer) {
             case TYPE_PLAYER_CHOOSE:
-                if (changeCell(column, row)){
-                    if(tbPlane.getValueAt(row, column)== IS_PLANE){
+                if (changeCell(column, row)) {
+                    if (tbPlane.getValueAt(row, column) == IS_PLANE) {
                         numberPlane++;
                         tbPlane.setValueAt("", row, column);
                         deletePlane(column, row);
-                    }else {
-                        if (numberPlane <= 0){
+                    } else {
+                        if (numberPlane <= 0) {
                             JOptionPane.showMessageDialog(null, "Please push OK to finish your choice, number of your plane is full");
                             numberPlane = 0;
                             break;
@@ -222,46 +252,55 @@ public class TablePosition extends javax.swing.JFrame {
                 }
                 break;
             case TYPE_PLAYER_FIRE:
-                if (changeCell(column, row)) {
-                    tbPlane.setValueAt(IS_CHECKED, row, column);
+                if (yourTurn) {
+                    if (changeCell(column, row)) {
+                        tbPlane.setValueAt(IS_CHECKED, row, column);
+                        yourTurn = false;
+                        processed.getBotProcessed().firePlane(tbPlane ,yourTurn);
+                    }else{
+//                        chooseCell(column, row, typePlayer);//Worng in here
+                    }
                 }
                 break;
         }
     }
-    
+
     //Checking value in Cell, if eual Null or "" --> Cell = "X" --> True
     private boolean changeCell(int column, int row) {
-        Object[] st = new Object[]{"X", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
-        for (Object st1 : st) {
+        String[] st = {"X", "O", "PLE", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+        for (String st1 : st) {
             try {
                 if (tbPlane.getValueAt(row, column).equals(st1)) {
                     return false;
                 }
-            }catch(NullPointerException e){
+            } catch (NullPointerException e) {
                 return true;
             }
         }
         return true;
     }
-    
-    private void selectPlane(int column, int row){
-        for (String st: stPlane){
-           if (hsPlayer1.get(st).getCell() == 0){
-               hsPlayer1.put(st, new Player(column, row, COUNT_COLUMN));
-               break;
-           }
+
+    //Select position of Plane, add to HashMap hsPlayer1
+    private void selectPlane(int column, int row) {
+        for (String st : stPlane) {
+            if (hsYourPlane.get(st).getCell() == 0) {
+                hsYourPlane.put(st, new Player(column, row, COUNT_COLUMN));
+                break;
+            }
         }
     }
-    private void deletePlane(int column, int row){
+
+    //Select position of Plane, delele from HashMap hsPlayer1
+    private void deletePlane(int column, int row) {
         int cell = (row) * (COUNT_COLUMN - 1) + column;
-        for (String st : hsPlayer1.keySet()){
-           if (hsPlayer1.get(st).getCell() == cell){
-               hsPlayer1.put(st, new Player(0, 0, 0));
-               break;
-           }
+        for (String st : hsYourPlane.keySet()) {
+            if (hsYourPlane.get(st).getCell() == cell) {
+                hsYourPlane.put(st, new Player(0, 0, 0));
+                break;
+            }
         }
     }
-    
+
     private void btNewGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNewGameActionPerformed
         numberPlane = NUMBER_PLANE;
         typePlayer = TYPE_PLAYER_CHOOSE;
@@ -269,13 +308,21 @@ public class TablePosition extends javax.swing.JFrame {
     }//GEN-LAST:event_btNewGameActionPerformed
 
     private void btSelectOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSelectOKActionPerformed
-        if (numberPlane ==0){
+        if (numberPlane == 0) {
             typePlayer = TYPE_PLAYER_FIRE;
+            lbPlayerTurn.setText(YOUR_TURN_TXT);
         }
     }//GEN-LAST:event_btSelectOKActionPerformed
-    
+
+    public void playerTurn(boolean yourTurn) {
+        if (yourTurn) {
+            lbPlayerTurn.setText(YOUR_TURN_TXT);
+        } else {
+            lbPlayerTurn.setText(ENEMY_TURN_TXT);
+        }
+    }
+
     //Select 10 Plane in first New Game
-    
     /**
      * @param args the command line arguments
      */
@@ -323,6 +370,10 @@ public class TablePosition extends javax.swing.JFrame {
         });
     }
 
+    public JTable getTbPlane() {
+        return tbPlane;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btNewGame;
     private javax.swing.JButton btSelectOK;
@@ -333,6 +384,8 @@ public class TablePosition extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lbNumberEnemyPlane;
     private javax.swing.JLabel lbNumberMyPlane;
     private javax.swing.JLabel lbPlayerTurn;
